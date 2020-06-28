@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -51,7 +52,7 @@ public class HelpRequest {
 
                         case"login":
                             String loginStatus = jo.getString("code");
-                            if(loginStatus.equals("Login success"))
+                            if(loginStatus.equals("Login successful"))
                             {
                                 Intent intent = new Intent(ctx,Home.class);//Home is new class with xml file
                                 ctx.startActivity(intent);
@@ -82,6 +83,23 @@ public class HelpRequest {
                             }
 
                             break;
+                        case"search":
+//                            Search search = new Search();
+//                            JSONArray jarray = new JSONArray(response);
+//
+//                            for(int i=0; i<ja.length(); i++)
+//                            {
+//                                JSONObject jsonOb = jarray.getJSONObject(i);
+//                                String city =jsonOb.getString("CITY_NAME");
+//                                TextView t = new TextView();
+//
+//                            }
+//
+//
+//
+
+                            break;
+
 
 
                     }
