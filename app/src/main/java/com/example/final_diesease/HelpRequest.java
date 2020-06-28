@@ -1,5 +1,6 @@
 package com.example.final_diesease;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -22,7 +23,7 @@ import java.util.Map;
 
 public class HelpRequest {
 
-
+    AlertDialog alertDialog;
     String url="https://lamp.ms.wits.ac.za/home/s2246323/";
     Map<String, String> params;
 
@@ -58,6 +59,27 @@ public class HelpRequest {
                             break;
 
                         case"register":
+                            String registerStatus=jo.getString("code");
+                            Log.d("I made it this far",registerStatus);
+                            if(registerStatus.equals("register successful"))
+                            {
+                                Log.d("not this",registerStatus);
+                                alertDialog = new AlertDialog.Builder(ctx).create();
+                                alertDialog.setTitle("Register Successful");
+                                alertDialog.setMessage("You can now Login");
+                                alertDialog.show();
+                                Intent intent = new Intent(ctx,MainActivity.class);//Home is new class with xml file
+                                ctx.startActivity(intent);
+                            }
+                            else
+                            {
+                                Log.d("I expext this",registerStatus);
+                                alertDialog = new AlertDialog.Builder(ctx).create();
+                                alertDialog.setTitle("Error in Registering");
+                                alertDialog.setMessage("Unable to Register");
+                                alertDialog.show();
+
+                            }
 
                             break;
 
