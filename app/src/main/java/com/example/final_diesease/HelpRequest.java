@@ -60,10 +60,10 @@ public class HelpRequest {
 
                         case"register":
                             String registerStatus=jo.getString("code");
-                            Log.d("I made it this far",registerStatus);
+
                             if(registerStatus.equals("register successful"))
                             {
-                                Log.d("not this",registerStatus);
+
                                 alertDialog = new AlertDialog.Builder(ctx).create();
                                 alertDialog.setTitle("Register Successful");
                                 alertDialog.setMessage("You can now Login");
@@ -73,7 +73,7 @@ public class HelpRequest {
                             }
                             else
                             {
-                                Log.d("I expext this",registerStatus);
+
                                 alertDialog = new AlertDialog.Builder(ctx).create();
                                 alertDialog.setTitle("Error in Registering");
                                 alertDialog.setMessage("Unable to Register");

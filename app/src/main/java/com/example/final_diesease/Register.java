@@ -23,11 +23,6 @@ public class Register extends AppCompatActivity {
         userPassET = findViewById(R.id.userPass);
 
 
-
-
-
-
-
     }
 
     public void setRegister(String name, String surname, String email, String userName, String userPass)
@@ -37,7 +32,7 @@ public class Register extends AppCompatActivity {
         helpRequest.populateParams("SURNAME" ,surname);
         helpRequest.populateParams("EMAIL",email);
         helpRequest.populateParams("USER_NAME" ,userName);
-        helpRequest.populateParams("PASS",userPass);
+        helpRequest.populateParams("PASSWORD",userPass);
         helpRequest.makeRequest("register",this);
     }
 
