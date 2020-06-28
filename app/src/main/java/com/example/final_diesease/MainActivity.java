@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         HelpRequest helpRequest = new HelpRequest();
         helpRequest.populateParams("USER_NAME",user);
         helpRequest.populateParams("PASSWORD" ,pass);
-        helpRequest.makeRequest("login",this);
+        helpRequest.makeRequest("login",this,null);
 
     }
 

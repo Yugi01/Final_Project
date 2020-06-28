@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +27,7 @@ import java.util.Map;
 public class HelpRequest {
 
     AlertDialog alertDialog;
+    String userName;
     String url="https://lamp.ms.wits.ac.za/home/s2246323/";
     Map<String, String> params;
 
@@ -34,7 +37,7 @@ public class HelpRequest {
     }
 
 
-    public void makeRequest(final String type, final Context ctx)
+    public void makeRequest(final String type, final Context ctx, @Nullable final ResponseCallBack callBack)
     {
         RequestQueue requestQueue = Volley.newRequestQueue(ctx);
 
@@ -52,9 +55,11 @@ public class HelpRequest {
 
                         case"login":
                             String loginStatus = jo.getString("code");
+                            userName = jo.getString("user");
                             if(loginStatus.equals("Login successful"))
                             {
                                 Intent intent = new Intent(ctx,Home.class);//Home is new class with xml file
+
                                 ctx.startActivity(intent);
                             }
                             break;
@@ -83,7 +88,7 @@ public class HelpRequest {
                             }
 
                             break;
-                        case"search":
+                        case"searchPlace":
 //                            Search search = new Search();
 //                            JSONArray jarray = new JSONArray(response);
 //
@@ -94,9 +99,11 @@ public class HelpRequest {
 //                                TextView t = new TextView();
 //
 //                            }
-//
-//
-//
+
+                            break;
+
+                        case"riskSearch":
+                            callBack.OnSearchSuccess(jo);
 
                             break;
 
@@ -129,6 +136,14 @@ public class HelpRequest {
     public void populateParams(String key, String value)
     {
         params.put(key, value);
+    }
+
+    public interface ResponseCallBack
+    {
+
+        void OnSearchSuccess(JSONObject response);
+
+
     }
 
 

@@ -33,7 +33,7 @@ public class Register extends AppCompatActivity {
         helpRequest.populateParams("EMAIL",email);
         helpRequest.populateParams("USER_NAME" ,userName);
         helpRequest.populateParams("PASSWORD",userPass);
-        helpRequest.makeRequest("register",this);
+        helpRequest.makeRequest("register",this,null);
     }
 
     public void onClickRegister(View view)

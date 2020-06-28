@@ -3,12 +3,13 @@ package com.example.final_diesease;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class Search extends AppCompatActivity {
+public class CheckStats extends AppCompatActivity {
 
 
     EditText searchET;
@@ -26,19 +27,26 @@ public class Search extends AppCompatActivity {
 
     }
 
-    public void setSearch()
+    public void setSearchPlace()
     {
         HelpRequest helpRequest = new HelpRequest();
         //helpRequest.populateParams("CITY",searchET);
-        helpRequest.makeRequest("search",this);
+        helpRequest.makeRequest("searchPlace",this,null);
     }
 
-    public void OnClickSearch(View view)
+    public void OnClickSearchPlace(View view)
     {
        // String search = searchET.getText().toString();
-        setSearch();
+        setSearchPlace();
 
     }
+
+    public void onClickHome(View view)
+    {
+        Intent intent = new Intent(this,Home.class);
+        startActivity(intent);
+    }
+
 
 
 

@@ -15,9 +15,27 @@ public class Home extends AppCompatActivity {
 
     }
 
-    public void OnClickSearch(View view)
+    public void OnClickSearchPlace(View view)
     {
-        Intent intent = new Intent(this,Search.class);
+        Intent intent = new Intent(this, CheckStats.class);
+        startActivity(intent);
+    }
+
+    public void onClickRecord(View view)
+    {
+        Intent intent = new Intent(this,RecordCase.class);
+        startActivity(intent);
+    }
+
+    public void onClickRiskCheck(View view)
+    {
+        Intent intent = new Intent(this,RiskCheck.class);
+        startActivity(intent);
+    }
+
+    public void onClickLogout(View view)
+    {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
