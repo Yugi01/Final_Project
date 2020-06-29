@@ -31,7 +31,7 @@ public class HelpRequest {
     AlertDialog alertDialog;
 
     String userName;
-    String url="https://lamp.ms.wits.ac.za/home/s2246323/";
+    String url="https://lamp.ms.wits.ac.za/home/s2109671/";
     Map<String, String> params;
 
     public HelpRequest()
@@ -85,7 +85,7 @@ public class HelpRequest {
                                         .setCancelable(false)
                                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
-                                                Intent intent = new Intent(ctx,MainActivity.class);//Home is new class with xml file
+                                                Intent intent = new Intent(ctx,MainActivity.class);
                                                 ctx.startActivity(intent);
                                             }
                                         });
@@ -102,7 +102,7 @@ public class HelpRequest {
 
                                 String name = jo.getString("name");
                                 String surname=jo.getString("surname");
-                                String email=jo.getString("email");
+                              //  String email=jo.getString("email");
                                 String user = jo.getString("user");
                                 String pass = jo.getString("pass");
                                 String code = jo.getString("code");
@@ -118,10 +118,10 @@ public class HelpRequest {
                                 {
                                     mistakes+="Surname not entered \n";
                                 }
-                                 if(email.equals(""))
-                                {
-                                    mistakes+="Email not entered \n";
-                                }
+//                                 if(email.equals(""))
+//                                {
+//                                    mistakes+="Email not entered \n";
+//                                }
                                 if(user.equals(""))
                                 {
                                     mistakes+="userName not entered \n";
@@ -142,16 +142,30 @@ public class HelpRequest {
 
                             break;
                         case"riskCountry":
-                            callBack.OnCountryClick(jo);
+                            callBack.OnCountryClick(ja);
                             break;
 
                         case"riskSearch":
-                            callBack.OnSearchSuccess(jo);
+                            String alert = jo.getString("code");
+                            String message="";
+                            alertDialog = new AlertDialog.Builder(ctx).create();
+                            alertDialog.setTitle("Risk status");
+                            if(alert.equals("this is a high risk aera"))
+                            {
+                                message="that is a highrisk city";
+                            }
+                            else
+                            {
+                                message="that is a lowrisk city";
+                            }
+
+                            alertDialog.setMessage(message);
+                            alertDialog.show();
 
                             break;
 
                         case"highrisk":
-                            callBack.OnHigh(jo);
+                            callBack.OnHigh(ja);
                             break;
 
 
@@ -210,8 +224,8 @@ public class HelpRequest {
     {
 
         void OnSearchSuccess(JSONObject response);
-        void OnCountryClick(JSONObject response);
-        void OnHigh(JSONObject response);
+        void OnCountryClick(JSONArray response);
+        void OnHigh(JSONArray response);
 
 
     }

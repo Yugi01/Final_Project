@@ -2,13 +2,14 @@ package com.example.final_diesease;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 public class Register extends AppCompatActivity {
 
-    EditText userNameET, userSurnameET, userEmailET, userUserName,userPassET;
+    EditText userNameET, userSurnameET, userUserName,userPassET;
 
 
     @Override
@@ -16,36 +17,44 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        userNameET = findViewById(R.id.user);
+        userNameET = findViewById(R.id.name);
         userSurnameET =findViewById(R.id.userSurname);
-        userEmailET =findViewById(R.id.userEmail);
+        //userEmailET =findViewById(R.id.userEmail);
         userUserName=findViewById(R.id.userName);
         userPassET = findViewById(R.id.userPass);
 
 
     }
 
-    public void setRegister(String name, String surname, String email, String userName, String userPass)
+    public void setRegister(String userName, String name, String surname, String userPass)
     {
         HelpRequest helpRequest = new HelpRequest();
-        helpRequest.populateParams("NAME",name);
-        helpRequest.populateParams("SURNAME" ,surname);
-        helpRequest.populateParams("EMAIL",email);
-        helpRequest.populateParams("USER_NAME" ,userName);
+        helpRequest.populateParams("USERNAME",userName);
+
+        helpRequest.populateParams("FNAME" ,name);
+        //helpRequest.populateParams("EMAIL",email);
+        helpRequest.populateParams("LNAME" ,surname);
         helpRequest.populateParams("PASSWORD",userPass);
         helpRequest.makeRequest("register",this,null);
     }
 
     public void onClickRegister(View view)
     {
+        String userName=userUserName.getText().toString();
         String name =userNameET.getText().toString();
         String surname =userSurnameET.getText().toString();
-        String email =userEmailET.getText().toString();
-        String userName=userUserName.getText().toString();
+      //  String email =userEmailET.getText().toString();
+
         String pass= userPassET.getText().toString();
 
-        setRegister(name,surname,email,userName,pass);
+        setRegister(userName,name,surname,pass);
 
+    }
+
+    public void OnClickBack(View view)
+    {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 
 }

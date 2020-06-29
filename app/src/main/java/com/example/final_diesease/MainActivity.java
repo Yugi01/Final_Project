@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userET=findViewById(R.id.user);
+        userET=findViewById(R.id.name);
         passET=findViewById(R.id.password);
 
     }
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public void Login(String user, String pass)
     {
         HelpRequest helpRequest = new HelpRequest();
-        helpRequest.populateParams("USER_NAME",user);
+        helpRequest.populateParams("USERNAME",user);
         helpRequest.populateParams("PASSWORD" ,pass);
         helpRequest.makeRequest("login",this,null);
 

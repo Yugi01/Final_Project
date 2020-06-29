@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="188dp"
         android:ems="10"
-        android:hint="search location"
+        android:hint="Search City"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,33 +30,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/riskSearch" />
 
-    <TextView
-        android:id="@+id/txtRisk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:text="TxtRisk"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRiskSearch" />
-
-    <TextView
-        android:id="@+id/txtRiskCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Number of cases"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRisk" />
-
     <Button
         android:id="@+id/home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="258dp"
         android:onClick="OnClickHome"
         android:text="Home"
-        app:layout_constraintTop_toBottomOf="@+id/txtRiskCount"
+        app:layout_constraintTop_toBottomOf="@+id/btnRiskSearch"
         tools:layout_editor_absoluteX="169dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

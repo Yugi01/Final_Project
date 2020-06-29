@@ -6,15 +6,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class CheckStats extends AppCompatActivity {
 
     Context ctx;
+    ArrayAdapter riskAdapter, countryAdapter;
+    ArrayList<String> riskArray = new ArrayList<String>();
+    ArrayList<String> countryArray = new ArrayList<String>();
 
 //    TextView citytxt,countrytxt,casestxt,recenttxt;
 
@@ -25,6 +31,14 @@ public class CheckStats extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         ctx=this;
+        riskAdapter = new ArrayAdapter<String>(this, R.layout.activity_listview, riskArray );
+        countryAdapter = new ArrayAdapter<String>(this, R.layout.activity_listview, countryArray );
+
+        ListView riskList = (ListView) findViewById(R.id.riskList);
+        riskList.setAdapter(riskAdapter);
+
+        ListView countryList = (ListView) findViewById(R.id.countryList);
+        countryList.setAdapter(countryAdapter);
 
 //        citytxt = findViewById(R.id.caseid);
 //        countrytxt=findViewById(R.id.countryid);
@@ -45,18 +59,34 @@ public class CheckStats extends AppCompatActivity {
         }
 
         @Override
-        public void OnCountryClick(JSONObject response) {
+        public void OnCountryClick(JSONArray response) {
 
-//            try {
-//               // citytxt.setText(response.getString("response"));
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+            try {
+
+                for(int i=0; i<response.length(); i++)
+                {
+
+
+                    String country = response.getJSONObject(i).getString("COUNTRYNAME");
+                    String cases = response.getJSONObject(i).getString("TOTALCASES");
+                    String worstCity = response.getJSONObject(i).getString("WORSTCITY");
+
+                    countryAdapter.add(country+"-"+cases+"-"+worstCity);
+
+                }
+
+                countryAdapter.notifyDataSetChanged();
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
 
         }
 
         @Override
-        public void OnHigh(JSONObject response) {
+        public void OnHigh(JSONArray response) {
 
         }
     });
@@ -81,35 +111,31 @@ public class CheckStats extends AppCompatActivity {
             }
 
             @Override
-            public void OnCountryClick(JSONObject response) {
+            public void OnCountryClick(JSONArray response) {
 
             }
 
             @Override
-            public void OnHigh(JSONObject response) {
+            public void OnHigh(JSONArray response) {
 
                 try {
 
 
                     for(int i=0; i<response.length(); i++)
                     {
-                        String city = response.getString("CITYNAME");
-                        String country = response.getString("COUNTRYNAME");
-                        String cases = response.getString("CASES");
-                        String recent = response.getString("RECENTCASE");
+                        String city = response.getJSONObject(i).getString("CITYNAME");
+                        String country = response.getJSONObject(i).getString("COUNTRYNAME");
+                        String cases = response.getJSONObject(i).getString("CASES");
+                        String recent = response.getJSONObject(i).getString("RECENTCASE");
 
-                        TextView citytxt = new TextView(ctx);
-                        TextView countrytxt= new TextView(ctx);
-                        TextView casestxt=new TextView(ctx);
-                        TextView recenttxt= new TextView(ctx);
-                        
-                        citytxt.setText(city);
-                        countrytxt.setText(country);
-                        casestxt.setText(cases);
-                        recenttxt.setText(recent);
+
+                        riskAdapter.add(city+"-"+country+"-"+cases+"-"+recent);
+
+
 
 
                     }
+                    riskAdapter.notifyDataSetChanged();
 
 
                 } catch (JSONException e) {
