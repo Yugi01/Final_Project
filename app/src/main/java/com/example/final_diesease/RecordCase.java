@@ -3,6 +3,7 @@ package com.example.final_diesease;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,9 @@ public class RecordCase extends AppCompatActivity {
         cityET=findViewById(R.id.city);
      //   dateET=findViewById(R.id.date);
 
+        //"No name defined" is the default value.
+
+
     }
 
     public void onClickAddCase(View view)
@@ -30,11 +34,13 @@ public class RecordCase extends AppCompatActivity {
         String country = countryET.getText().toString();
         String city = cityET.getText().toString();
        // String date=dateET.getText().toString();
+        SharedPreferences prefs = getSharedPreferences("myprefs", MODE_PRIVATE);
+        String name = prefs.getString("name", "No name defined");
 
         HelpRequest helpRequest = new HelpRequest();
         helpRequest.populateParams("COUNTRY",country);
         helpRequest.populateParams("CITY",city);
-        helpRequest.populateParams("USER",helpRequest.userName);
+        helpRequest.populateParams("USERNAME",name);
         //Log.d("username works?",helpRequest.userName);
         helpRequest.makeRequest("addCase",this,null);
 

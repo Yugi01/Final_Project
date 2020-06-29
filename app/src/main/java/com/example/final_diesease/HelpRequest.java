@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HelpRequest {
 
@@ -58,9 +61,14 @@ public class HelpRequest {
 
                         case"login":
                             String loginStatus = jo.getString("code");
-                            userName = jo.getString("user");
+                            //userName = jo.getString("user");
                             if(loginStatus.equals("Login successful"))
                             {
+
+                                SharedPreferences.Editor editor = ctx.getSharedPreferences("myprefs", MODE_PRIVATE).edit();
+                                editor.putString("name",jo.getString("user") );
+                                editor.apply();
+
                                 Intent intent = new Intent(ctx,Home.class);
 
                                 ctx.startActivity(intent);
@@ -177,6 +185,13 @@ public class HelpRequest {
                                 alertDialog = new AlertDialog.Builder(ctx).create();
                                 alertDialog.setTitle("Case Status");
                                 alertDialog.setMessage("Case Added");
+                                alertDialog.show();
+                            }
+                            else if(add.equals("new city added"))
+                            {
+                                alertDialog = new AlertDialog.Builder(ctx).create();
+                                alertDialog.setTitle("Case Status");
+                                alertDialog.setMessage("New case");
                                 alertDialog.show();
                             }
                             else
