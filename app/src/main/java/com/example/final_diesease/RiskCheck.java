@@ -38,8 +38,9 @@ public class RiskCheck extends AppCompatActivity {
             public void OnSearchSuccess(JSONObject response) {
 
                 try {
+
                     tcity.setText(response.getString("CITY_NAME"));
-                   // tcountry.setText(response.getString("COUNTRY"));
+                    tcountry.setText(response.getString("CASES"));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -48,6 +49,15 @@ public class RiskCheck extends AppCompatActivity {
 
             }
 
+            @Override
+            public void OnCountryClick(JSONObject response) {
+
+            }
+
+            @Override
+            public void OnHigh(JSONObject response) {
+
+            }
         });
 
 

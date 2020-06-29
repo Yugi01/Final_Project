@@ -2,10 +2,12 @@ package com.example.final_diesease;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -27,6 +29,7 @@ import java.util.Map;
 public class HelpRequest {
 
     AlertDialog alertDialog;
+
     String userName;
     String url="https://lamp.ms.wits.ac.za/home/s2246323/";
     Map<String, String> params;
@@ -58,9 +61,16 @@ public class HelpRequest {
                             userName = jo.getString("user");
                             if(loginStatus.equals("Login successful"))
                             {
-                                Intent intent = new Intent(ctx,Home.class);//Home is new class with xml file
+                                Intent intent = new Intent(ctx,Home.class);
 
                                 ctx.startActivity(intent);
+                            }
+                            else
+                            {
+                                alertDialog = new AlertDialog.Builder(ctx).create();
+                                alertDialog.setTitle("Login status");
+                                alertDialog.setMessage("Username or password incorrect");
+                                alertDialog.show();
                             }
                             break;
 
@@ -69,41 +79,99 @@ public class HelpRequest {
 
                             if(registerStatus.equals("register successful"))
                             {
-
-                                alertDialog = new AlertDialog.Builder(ctx).create();
-                                alertDialog.setTitle("Register Successful");
-                                alertDialog.setMessage("You can now Login");
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+                                builder.setMessage("You can now Login")
+                                        .setTitle("Register Successful")
+                                        .setCancelable(false)
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                Intent intent = new Intent(ctx,MainActivity.class);//Home is new class with xml file
+                                                ctx.startActivity(intent);
+                                            }
+                                        });
+                                alertDialog =builder.create();
                                 alertDialog.show();
-                                Intent intent = new Intent(ctx,MainActivity.class);//Home is new class with xml file
-                                ctx.startActivity(intent);
+
+
+
+
+
                             }
                             else
                             {
 
+                                String name = jo.getString("name");
+                                String surname=jo.getString("surname");
+                                String email=jo.getString("email");
+                                String user = jo.getString("user");
+                                String pass = jo.getString("pass");
+                                String code = jo.getString("code");
+                                String mistakes="";
+
                                 alertDialog = new AlertDialog.Builder(ctx).create();
                                 alertDialog.setTitle("Error in Registering");
-                                alertDialog.setMessage("Unable to Register");
+                                if(name.equals(""))
+                                {
+                                    mistakes+="Name not entered \n";
+                                }
+                                 if(surname.equals(""))
+                                {
+                                    mistakes+="Surname not entered \n";
+                                }
+                                 if(email.equals(""))
+                                {
+                                    mistakes+="Email not entered \n";
+                                }
+                                if(user.equals(""))
+                                {
+                                    mistakes+="userName not entered \n";
+                                }
+                                if(pass.equals(""))
+                                {
+                                    mistakes+="Pass not entered \n";
+                                }
+                                if(code.equals("reg_failed"))
+                                {
+                                    mistakes+="User name is taken";
+                                }
+
+                                alertDialog.setMessage(mistakes);
                                 alertDialog.show();
 
                             }
 
                             break;
-                        case"searchPlace":
-//                            Search search = new Search();
-//                            JSONArray jarray = new JSONArray(response);
-//
-//                            for(int i=0; i<ja.length(); i++)
-//                            {
-//                                JSONObject jsonOb = jarray.getJSONObject(i);
-//                                String city =jsonOb.getString("CITY_NAME");
-//                                TextView t = new TextView();
-//
-//                            }
-
+                        case"riskCountry":
+                            callBack.OnCountryClick(jo);
                             break;
 
                         case"riskSearch":
                             callBack.OnSearchSuccess(jo);
+
+                            break;
+
+                        case"highrisk":
+                            callBack.OnHigh(jo);
+                            break;
+
+
+                        case"addCase":
+
+                            String add = jo.getString("code");
+                            if(add.equals("insert successful"))
+                            {
+                                alertDialog = new AlertDialog.Builder(ctx).create();
+                                alertDialog.setTitle("Case Status");
+                                alertDialog.setMessage("Case Added");
+                                alertDialog.show();
+                            }
+                            else
+                            {
+                                alertDialog = new AlertDialog.Builder(ctx).create();
+                                alertDialog.setTitle("Error in adding the case");
+                                alertDialog.setMessage("invalid inputs");
+                                alertDialog.show();
+                            }
 
                             break;
 
@@ -142,6 +210,8 @@ public class HelpRequest {
     {
 
         void OnSearchSuccess(JSONObject response);
+        void OnCountryClick(JSONObject response);
+        void OnHigh(JSONObject response);
 
 
     }
