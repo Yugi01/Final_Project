@@ -36,7 +36,7 @@ public class HelpRequest {
     String userName;
     String url="https://lamp.ms.wits.ac.za/home/s2109671/";
     Map<String, String> params;
-
+//finally
     public HelpRequest()
     {
         params = new HashMap<>();
